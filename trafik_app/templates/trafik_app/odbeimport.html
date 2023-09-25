@@ -1,0 +1,230 @@
+{% extends 'trafik_app/index.html' %}
+{% load static %}
+{% block odbemellek %}
+<head>
+    <link rel="stylesheet" href="{% static 'odbeimport.css' %}">
+    <meta charset="UTF-8">
+    <title>ODBE Import</title>
+</head>
+<body>
+
+<div class="container">
+    <div class="row row-cols-3">
+        <div class="col-12 col-lg-4">
+            <div class="card shadow p-4">
+                <div class="card-header border-bottom bg-white text-center">
+                    <span class="d-block">
+                        <span class="fs-4 szin1 fw-normal">
+                            Raktárkészlet import
+                        </span>
+                    </span>
+                </div>
+                <div class="card-body">
+                <p>Raktárkészlet excel importálása az adatbázisba</p>
+                <ul class="list-unstyled mb-4">
+                    <li class="list-item pb-2"><strong>Utolsó import dátuma</strong> {{ rkinfo }}</li>
+                    <li class="list-item pb-2"><br></li>
+                    <li class="list-item pb-2"><br></li>
+                    <li class="list-item"><br></li>
+                </ul>
+            <div class="d-grid">
+                <button type="button" class="btn btn-outline" data-bs-toggle="modal" data-bs-target="#rkImportModal">Import</button>
+            </div>
+
+        </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-4">
+     <div class="card shadow p-4">
+        <div class="card-header border-bottom bg-white text-center">
+            <span class="d-block">
+                <span class="fs-4 szin1 fw-normal">
+                    ODBE import
+                </span>
+            </span>
+        </div>
+        <div class="card-body">
+            <p>Raktárkészlet excel importálása az adatbázisba</p>
+            <ul class="list-unstyled mb-4">
+                <li class="list-item pb-2"><br></li>
+                <li class="list-item pb-2"><br></li>
+                <li class="list-item pb-2"><br></li>
+                <li class="list-item"><br></li>
+            </ul>
+            <div class="d-grid">
+                <button type="button" class="btn btn-outline" data-bs-toggle="modal" data-bs-target="#odbeUresListImport">Import</button>
+            </div>
+            </button>
+        </div>
+    </div>
+  </div>
+        <div class="col-12 col-lg-4">
+     <div class="card shadow p-4">
+        <div class="card-header border-bottom bg-white text-center">
+            <span class="d-block">
+                <span class="fs-4 szin1 fw-normal">
+                    Készletváltozás import
+                </span>
+            </span>
+        </div>
+        <div class="card-body">
+            <p>Raktárkészlet excel importálása az adatbázisba</p>
+            <form action="#" method="post" enctype="multipart/form-data">{% csrf_token %}
+                <ul class="list-unstyled">
+                    {% for adat in kvinfo %}
+                        <li class="list-item pb-2">
+                            <button type="button" class="datum" data-bs-toggle="modal" data-bs-target="#torlesModal" onclick="getID({{ adat.id }})">
+                                {{ adat.datumkezdet }}
+                                -
+                                {{ adat.datumvege }}
+                                <strong>  ( {{ adat.megjegyzes }} )</strong>
+                            </button>
+                        </li>
+
+                    {% endfor %}
+                </ul>
+            </form>
+            <div class="d-grid">
+                <button type="button" class="btn btn-outline" data-bs-toggle="modal" data-bs-target="#myModal">Import</button>
+            </div>
+
+        </div>
+    </div>
+  </div>
+    </div>
+
+    <!-- Hiba üzenet, ha nincs friss raktárkészlet -->
+    <br>
+    {% if messages %}
+        {% for msg in messages %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Hiba!</strong> {{ msg }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+<!-- The Modal - Raktárkészlet imprt -->
+<div class="modal fade" id="rkImportModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Raktárkészlet importálása</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+        <form action="#" method="post" enctype="multipart/form-data">{% csrf_token %}
+      <!-- Modal body -->
+      <div class="modal-body">
+              <div class="mb-3">
+                <input type="file" class="form-control" id="filenev" name="filenev">
+            </div>
+      </div>
+      <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-warning" data-bs-dismiss="modal" name="rkimport" id="rkimport">
+                    Import</button>
+            </div></form>
+    </div>
+  </div>
+</div>
+
+<!-- The Modal - Készletváltozás imprt -->
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Készletváltozás importálása</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+        <form action="#" method="post" enctype="multipart/form-data">{% csrf_token %}
+      <!-- Modal body -->
+      <div class="modal-body">
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Megjegyzés:</label>
+            <input type="text" class="form-control" id="megjegyzes" name="megjegyzes">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Dátum kezdete:</label>
+            <input type="date" class="form-control" id="datumkezdet" name="datumkezdet">
+          </div>
+              <div class="mb-3">
+                <input type="file" class="form-control" id="filenev" name="filenev">
+            </div>
+      </div>
+      <!-- Modal footer -->
+
+            <div class="modal-footer">
+
+                      <button type="submit" class="btn btn-warning" data-bs-dismiss="modal" name="kvimport" id="kvimport">
+                          Import</button>
+
+              </div></form>
+    </div>
+  </div>
+</div>
+
+<!-- The Modal - ODBE üres lista imprt -->
+<div class="modal fade" id="odbeUresListImport">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">ODBE üres lista importálása</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+        <form action="#" method="post" enctype="multipart/form-data">{% csrf_token %}
+      <!-- Modal body -->
+      <div class="modal-body">
+              <div class="mb-3">
+                <input type="file" class="form-control" id="filenev" name="filenev">
+            </div>
+      </div>
+      <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-warning" data-bs-dismiss="modal" name="odbeuresimport" id="odbeuresimport">
+                    Import</button>
+            </div></form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal - Törlés jóváhagyása -->
+<!-- The Modal -->
+<div class="modal fade" id="torlesModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Készletváltozás törlése</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body">
+        Biztos akarod törölni?
+      </div>
+      <!-- Modal footer -->
+              <div class="modal-footer">
+                  <form action="#" method="post" enctype="multipart/form-data">{% csrf_token %}
+                      <button type="submit" class="btn btn-danger" data-bs-dismiss="modal" name="datumGomb" id="datumGomb">
+                          Igen</button>
+                      <button type="submit" class="btn btn-warning" data-bs-dismiss="modal">Nem</button>
+                  </form>
+              </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    var kvinfoID
+    function getID(id) {
+        kvinfoID = id
+        document.getElementById('datumGomb').value = kvinfoID
+    }
+</script>
+
+</body>
+{% endblock %}

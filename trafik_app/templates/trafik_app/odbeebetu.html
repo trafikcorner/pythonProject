@@ -1,0 +1,96 @@
+{% extends "trafik_app/index.html" %}
+{% load static %}
+{% block odbemellek %}
+<head>
+    <link rel="stylesheet" href="{% static 'odbeebetu.css' %}">
+    <meta charset="UTF-8">
+    <title>ODBE e betű</title>
+
+</head>
+<body>
+
+
+
+
+
+{#<div class="ebetu-container">#}
+{#    <div class="gomb-container">#}
+{#    <button class="eexport-gomb" id="eexport" type="submit">Export</button>#}
+{#</div>#}
+{#    <table>#}
+{#        <thead>#}
+{#          <tr>#}
+{#            <th>NDN Kód</th>#}
+{#            <th>Megnevezés</th>#}
+{#            <th>Gyártó</th>#}
+{#            <th>Kategória</th>#}
+{#            <th>Trafikcikkód</th>#}
+{#          </tr>#}
+{#        </thead>#}
+{#        <tbody>#}
+{#      {% for adat in szotar %}#}
+{#      <tr>#}
+{#        <td>#}
+{#            {{ adat.ndn }}#}
+{#        </td>#}
+{#        <td>#}
+{#          {{ adat.megnevezes }}#}
+{#        </td>#}
+{#        <td>#}
+{#          {{ adat.gyarto }}#}
+{#        </td>#}
+{#        <td>#}
+{#          {{ adat.kategoria }}#}
+{#        </td>#}
+{#        <td>#}
+{#          {{ adat.trafikcikkod }}#}
+{#        </td>#}
+{#      </tr>#}
+{#    {% endfor %}#}
+{#        </tbody>#}
+{#      </table>#}
+</div>
+
+
+
+    {# MODAL - File kiválasztása #}
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" id="close">&times;</span>
+                <h2>File kiválasztása</h2>
+        </div>
+      <form action="#" method="post" enctype="multipart/form-data">{% csrf_token %}
+        <div class="modal-body">
+          <input type="file" name="filenev" id="filename">
+        </div>
+        <div class="modal-footer">
+            <button type="submit" name="okGomb" id="okGomb">OK</button>
+        </div>
+      </form>
+  </div>
+</div>
+
+
+
+<script>
+    var export_gomb = document.getElementById('eexport');
+    var modal = document.getElementById('myModal');
+    var okGomb = document.getElementById('okGomb');
+    var closeGomb = document.getElementById('close');
+
+    export_gomb.onclick = function () {
+        modal.style.display = 'block';
+    }
+    window.onclick = function(event) {
+        if (event.target == okGomb) {
+            modal.style.display = "none";
+        }
+        if (event.target == closeGomb) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+</body>
+{% endblock %}

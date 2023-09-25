@@ -1,0 +1,21 @@
+
+{% extends 'trafik_app/index.html' %}
+{% load static %}
+{% block odbemellek %}
+<head>
+<link rel="stylesheet" href="{% static 'cocacola.css' %}">
+    <meta charset="UTF-8">
+    <title>Coca Cola rendelés</title>
+</head>
+<body>
+<div class="cc-container">
+    <form action="#" method="post" enctype="multipart/form-data">{% csrf_token %}
+        <button type="submit" name="ccexcelimport" class="cckvexport">Orders Template Import</button>
+        <button type="submit" name="ccrkexport" class="cckvexport">RK Export</button>
+        <button type="submit" name="cckvexport" class="cckvexport">KV Export</button>
+    </form>
+</div>
+
+
+</body>
+{% endblock %}

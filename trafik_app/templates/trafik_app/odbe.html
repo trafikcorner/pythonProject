@@ -1,0 +1,25 @@
+{% extends "trafik_app/odbe.html" %}
+{% load static %}
+{% block content %}
+    <head>
+        <link rel="stylesheet" href="{% static 'odbe.css' %}">
+    </head>
+<body>
+
+    <div class="odbe-almenu-container" id="almenu_container">
+        <ul class="odbealmenu">
+            <li class=""><a href="{% url 'odbeimport' %}">Import</a></li>
+            <li class=""><a href="{% url 'odbeebetu' %}">E betűs</a></li>
+            <li class=""><a href="{% url 'odberendeles' %}">Rendelés</a></li>
+            <li class=""><a href="{% url 'export' %}">Export</a></li>
+        </ul>
+    </div>
+
+{# --- Kiválasztott menü --- #}
+    {% block odbemellek %}{% endblock %}
+
+
+
+
+</body>
+{% endblock %}

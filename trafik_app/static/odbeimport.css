@@ -1,0 +1,42 @@
+:root {
+    --szin1: rgb(39, 140, 140)
+}
+
+.container {
+    margin-top: 100px;
+}
+
+.szin1 {
+    color: var(--szin1);
+}
+
+.datum {
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.odbeimport-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+}
+
+.btn-outline {
+    color: #648484;
+    background-color: #ffffff;
+    border-color: #648484;
+    letter-spacing: 0.05em;
+    border-radius: 0px;
+    font-weight: 500;
+}
+
+.btn-outline:hover,
+.btn-outline:active,
+.btn-outline:focus,
+.btn-outline.active {
+  background: #648484;
+  color: #ffffff;
+  border-color: #648484;
+}

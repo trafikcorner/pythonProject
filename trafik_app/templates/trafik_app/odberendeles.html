@@ -1,0 +1,129 @@
+{% extends 'trafik_app/index.html' %}
+{% load static %}
+{% block odbemellek %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ODBE Rendelés</title>
+    <link rel="stylesheet" href="{% static 'odberendeles.css' %}">
+</head>
+<body>
+
+<div class="ebetu-container">
+    <div class="div-bal">
+        {% for gyarto in gyartok %}
+            <div class="buborek">{{ gyarto }}</div>
+        {% endfor %}
+    </div>
+    <div class="div-jobb">
+
+         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+        <table id="myTable">
+        <thead>
+          <tr>
+            <th>NDN Kód</th>
+            <th>Megnevezés</th>
+            <th>Gyártó</th>
+            <th>Kategória</th>
+            <th>Trafikcikkód</th>
+          </tr>
+        </thead>
+        <tbody>
+      {% for adat in data %}
+      <tr>
+        <td>
+            {{ adat.ndn }}
+        </td>
+        <td>
+          {{ adat.megnevezes }}
+        </td>
+        <td>
+          {{ adat.gyarto }}
+        </td>
+        <td>
+          {{ adat.kategoria }}
+        </td>
+        <td>
+          {{ adat.trafikcikkod }}
+        </td>
+      </tr>
+    {% endfor %}
+        </tbody>
+      </table>
+    </div>
+</div>
+
+{#<div class="odberendeles-container">#}
+    {#  BAL OLDAL  #}
+{#    <div class="div-bal">#}
+{#        {% for gyarto in gyartok %}#}
+{#            <div class="buborek">{{ gyarto }}</div>#}
+{#        {% endfor %}#}
+{#    </div>#}
+    {#  JOBB OLDAL  #}
+{#    <div class="div-jobb">#}
+{##}
+{#        <div class="ebetu-container">#}
+{#            <table class="odberendeles-table">#}
+{#        <thead>#}
+{#          <tr>#}
+{#            <th>NDN Kód</th>#}
+{#            <th>Megnevezés</th>#}
+{#            <th>Gyártó</th>#}
+{#            <th>Kategória</th>#}
+{#            <th>Trafikcikkód</th>#}
+{#          </tr>#}
+{#        </thead>#}
+{#        <tbody>#}
+{#      {% for adat in data %}#}
+{#      <tr>#}
+{#        <td>#}
+{#            {{ adat.ndn }}#}
+{#        </td>#}
+{#        <td>#}
+{#          {{ adat.megnevezes }}#}
+{#        </td>#}
+{#        <td>#}
+{#          {{ adat.gyarto }}#}
+{#        </td>#}
+{#        <td>#}
+{#          {{ adat.kategoria }}#}
+{#        </td>#}
+{#        <td>#}
+{#          {{ adat.trafikcikkod }}#}
+{#        </td>#}
+{#      </tr>#}
+{#    {% endfor %}#}
+{#        </tbody>#}
+{#      </table>#}
+{#        </div>#}
+{#</div>#}
+
+
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+.ebetu-container {
+    position: fixed;
+    margin-top: 80px;
+    height: calc(100vh - 20px);
+    display: flex;
+    width: 100%;
+}
+
+.div-bal {
+    margin-left: 20px;
+    width: 18%;
+    padding-right: 10px;
+    color: #1c1c1c;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+}
+
+.div-jobb {
+    margin-right: 20px;
+    overflow: auto;
+    background: rgba(255,255,255,0.2);
+    width: 100%;
+}
+
+table {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 300;
+  border: none;
+  border-spacing: 0;
+    width: 100%;
+}
+
+th {
+  color: #a66464;
+  text-align: left;
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  padding: 5px 5px;
+  font-size: 16px;
+  border-bottom: 2px solid rgba(52, 73, 94, 0.37);
+}
+
+td {
+  color: #3a4141;
+  padding: 3px 3px;
+  font-size: 14px;
+}
+
+.buborek {
+    padding: 7px;
+    margin-bottom: 10px;
+    border-left: 8px solid white;
+    background: rgba(255,255,255, 0.3);
+    border-radius: 5px;
+}
+
